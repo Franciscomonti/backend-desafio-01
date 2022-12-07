@@ -1,11 +1,3 @@
-class Product {
-    constructor(name, price, code){
-        this.name = name;
-        this.price = price;
-        this.code = code;
-    }
-}
-
 class ProductManager {
     products;
     constructor() {
@@ -14,9 +6,9 @@ class ProductManager {
 
     addProduct(product) {
         if(this.products.find(x => x.code ===  product.code)){
-            return console.log("Product already exists");
+            return console.log("Product code already exists");
         }
-        else if(product.name == null || product.price == null || product.code == null){
+        else if(product.title == null || product.price == null || product.code == null || product.description == null || product.thumbnail == null || product.stock == null){
             return console.log("some date is null");
         }
         else{
@@ -53,19 +45,34 @@ class ProductManager {
     }
 }
 
+// Node test !!
 
+//creacion de instancia ProductManager
 const productManager = new ProductManager
 
-let product1 = new Product('casa', 10000 , '123123')
-// let product2 = new Product('casa2', 22222 , 'a2a')
-// let product3 = new Product('casa2', 22222 , '23')
+//LLamando a getProducts(devuelve vacio)
+productManager.getProducts()
 
+//Producto de prueba 
+let product1 = {title:'Pencil',description: 'Black pencil', price: 150 , code : 'PB230', thumbnail: 'url://images', stock : 10 }
 
+// Llamando a addProduct con el producto de prueba
 productManager.addProduct(product1)
-//productManager.addProduct(product2)
-// productManager.addProduct(product3)
 
+//se llama nuevamente getProducts para mostrar el producto de prueba agregado
+productManager.getProducts()
+
+//se intenta agregar nuevamente el mismo producto (arrojara error ya que el code se repite)
+productManager.addProduct(product1)
+
+//se llama getProductById para traer el producto con id = '1'
 productManager.getProductById(1)
 
-productManager.getProducts()
+//se llama getProductById para traer el producto con id = '2' (inexistente arrojara error)
+productManager.getProductById(2)
+
+//se valida que esten todas las props del producto
+
+let product2 = {title:'Pencil',description: 'Black pencil'}
+productManager.addProduct(product2)
 
